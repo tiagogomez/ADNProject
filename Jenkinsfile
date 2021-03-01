@@ -1,6 +1,6 @@
 node('Slave_Mac') {
 
-    stage('Checkout/Build/Test') {
+    stage('Checkout') {
 
         // Checkout files.
         checkout([
@@ -13,33 +13,6 @@ node('Slave_Mac') {
                 url: 'https://github.com/tiagogomez/ADNProject'
             ]]
         ])
-
-        // Build and Test
-        sh 'xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED="NO"'
-        //sh 'xcodebuild -scheme "ADNProject" -configuration "Debug" clean build test -destination "platform=iOS Simulator,name=iPhone 11,OS=13.2" -enableCodeCoverage YES'
-
-        // Publish test restults.
-        step([$class: 'JUnitResultArchiver', allowEmptyResults: true, testResults: 'build/reports/junit.xml'])
-    }
-    
-    stage('Analytics') {
-
-        parallel Coverage: {
-            // Generate Code Coverage report
-            sh '/usr/local/bin/slather coverage --jenkins --html --scheme ADNProject ADNProject.xcodeproj/'
-
-            // Publish coverage results
-            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'html', reportFiles: 'index.html', reportName: 'Coverage Report'])
-
-
-        }, Checkstyle: {
-
-            // Generate Checkstyle report
-            sh '/usr/local/bin/swiftlint lint --reporter checkstyle > checkstyle.xml || true'
-
-            // Publish checkstyle result
-            step([$class: 'CheckStylePublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: 'checkstyle.xml', unHealthy: ''])
-        }, failFast: true|false
     }
     
     stage('Static Code Analysis') {
@@ -48,6 +21,15 @@ node('Slave_Mac') {
                 sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
             }
         }
+    }
+    
+    stage('/Build/Test') {
+        // Build and Test
+        sh 'xcodebuild clean build test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED="NO"'
+        //sh 'xcodebuild -scheme "ADNProject" -configuration "Debug" clean build test -destination "platform=iOS Simulator,name=iPhone 11,OS=13.2" -enableCodeCoverage YES'
+
+        // Publish test restults.
+        step([$class: 'JUnitResultArchiver', allowEmptyResults: true, testResults: 'build/reports/junit.xml'])
     }
     
     post {
