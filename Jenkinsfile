@@ -1,5 +1,5 @@
 node('Slave_Mac') {
-/*
+
     stage('Checkout/Build/Test') {
 
         // Checkout files.
@@ -40,7 +40,7 @@ node('Slave_Mac') {
             step([$class: 'CheckStylePublisher', canComputeNew: false, defaultEncoding: '', healthy: '', pattern: 'checkstyle.xml', unHealthy: ''])
         }, failFast: true|false
     }
-    */
+    
     stage('Static Code Analysis') {
         steps {
             withSonarQubeEnv('Sonar') {
