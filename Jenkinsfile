@@ -1,67 +1,23 @@
-pipeline {
-  //Donde se va a ejecutar el Pipeline
-  agent {
-    label 'Slave_Mac'
-  }
+node('Slave_Mac') {
 
-  //Opciones específicas de Pipeline dentro del Pipeline
-  options {
-    	buildDiscarder(logRotator(numToKeepStr: '3'))
- 	disableConcurrentBuilds()
-  }
+    stage('Checkout/Build/Test') {
 
-  //Una sección que define las herramientas “preinstaladas” en Jenkins
-  tools {
-    jdk 'JDK8_Centos' //Preinstalada en la Configuración del Master
-    gradle 'Gradle4.5_Centos' //Preinstalada en la Configuración del Master
-  }
+        // Checkout files.
+        checkout([
+            $class: 'GitSCM',
+            branches: [[name: 'master']],
+            doGenerateSubmoduleConfigurations: false,
+            extensions: [], submoduleCfg: [],
+            userRemoteConfigs: [[
+                credentialsId: 'GitHub_tiagogomez',
+                url: 'https://github.com/tiagogomez/ADNProject'
+            ]]
+        ])
 
-  //Aquí comienzan los “items” del Pipeline
-  stages{
-    stage('Checkout') {
-      steps{
-        echo "------------>Checkout<------------"
-      }
-    }
-    
-    stage('Compile & Unit Tests') {
-      steps{
-        echo "------------>Unit Tests<------------"
+        // Build and Test
+        sh 'xcodebuild -scheme "TimeTable" -configuration "Debug" build test -destination "platform=iOS Simulator,name=iPhone 6,OS=10.1" -enableCodeCoverage YES | /usr/local/bin/xcpretty -r junit'
 
-      }
+        // Publish test restults.
+        step([$class: 'JUnitResultArchiver', allowEmptyResults: true, testResults: 'build/reports/junit.xml'])
     }
-
-    stage('Static Code Analysis') {
-      steps{
-        echo '------------>Análisis de código estático<------------'
-        withSonarQubeEnv('Sonar') {
-            sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
-        }
-      }
-    }
-
-    stage('Build') {
-      steps {
-        echo "------------>Build<------------"
-      }
-    }  
-  }
-post {
-    always {
-      echo 'This will always run'
-    }
-    success {
-      echo 'This will run only if successful'
-    }
-    failure {
-      echo 'This will run only if failed'
-    }
-    unstable {
-      echo 'This will run only if the run was marked as unstable'
-    }
-    changed {
-      echo 'This will run only if the state of the Pipeline has changed'
-      echo 'For example, if the Pipeline was previously failing but is now successful'
-    }
-  }
 }
