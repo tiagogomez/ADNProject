@@ -55,7 +55,7 @@ node('Slave_Mac') {
         }
         success {
           echo 'This will run only if successful'
-          junit 'build/test-results/test/*.xml
+          junit 'build/test-results/test/*.xml'
         }
         failure {
           echo 'This will run only if failed'
