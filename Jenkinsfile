@@ -15,7 +15,7 @@ node('Slave_Mac') {
         ])
 
         // Build and Test
-        sh 'xcodebuild -scheme "ADNProject" -configuration "Debug" clean build test -destination "platform=iOS Simulator,name=iPhone 11,OS=13.6" -enableCodeCoverage YES | /usr/local/bin/xcpretty -r junit'
+        sh 'xcodebuild -scheme "ADNProject" -configuration "Debug" clean build test -destination "platform=iOS Simulator,name=iPhone 11,OS=13.2" -enableCodeCoverage YES | /usr/local/bin/xcpretty -r junit'
 
         // Publish test restults.
         step([$class: 'JUnitResultArchiver', allowEmptyResults: true, testResults: 'build/reports/junit.xml'])
@@ -46,6 +46,27 @@ node('Slave_Mac') {
             withSonarQubeEnv('Sonar') {
                 sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner"
             }
+        }
+    }
+    
+    post {
+        always {
+          echo 'This will always run'
+        }
+        success {
+          echo 'This will run only if successful'
+          junit 'build/test-results/test/*.xml
+        }
+        failure {
+          echo 'This will run only if failed'
+          mail (to: 'santiago.gomez@ceiba.com.co',subject: "Failed Pipeline:${currentBuild.fullDisplayName}",body: "Something is wrong with ${env.BUILD_URL}")
+        }
+        unstable {
+          echo 'This will run only if the run was marked as unstable'
+        }
+        changed {
+          echo 'This will run only if the state of the Pipeline has changed'
+          echo 'For example, if the Pipeline was previously failing but is now successful'
         }
     }
 }
