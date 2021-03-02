@@ -33,9 +33,9 @@ pipeline {
     stage('Static Code Analysis') {
         steps {
             echo '------------>Análisis de código estático<------------'
-            withSonarQubeEnv('Sonar') {
-                sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
-            }
+            //withSonarQubeEnv('Sonar') {
+            //    sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
+            //}
         }
     }
     
@@ -49,7 +49,7 @@ pipeline {
     stage('Unit Tests') {
       steps{
         echo "------------>Unit Tests<------------"
-        //sh 'xcodebuild -scheme "ADNProject" -configuration "Debug" build test -destination "platform=iOS Simulator,name=iPhone 11,OS=13.3" -enableCodeCoverage YES'
+        sh 'xcodebuild -scheme "ADNProject" -configuration "Debug" build test -destination "platform=iOS Simulator,name=iPhone 11,OS=13.3" -enableCodeCoverage YES'
       }
     }
   }
