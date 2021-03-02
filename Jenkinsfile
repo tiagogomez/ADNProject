@@ -1,4 +1,19 @@
-node('Slave_Mac') {
+pipeline {
+
+  agent {
+    label 'Slave_Mac'
+  }
+  
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '3'))
+    disableConcurrentBuilds()
+  }
+  
+  tools {
+    jdk 'JDK8_Centos' //Preinstalada en la Configuración del Master
+  }
+  
+  stages {
     stage('Checkout') {
         // Checkout files.
         checkout([
@@ -14,11 +29,17 @@ node('Slave_Mac') {
     }
     
     stage('Static Code Analysis') {
-      steps{
-        echo '------------>Análisis de código estático<------------'
-        withSonarQubeEnv('Sonar') {
-        sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
+        steps {
+            echo '------------>Análisis de código estático<------------'
+            withSonarQubeEnv('Sonar') {
+            sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"}
         }
-      }
     }
+  }
 }
+
+
+
+    
+    
+    
