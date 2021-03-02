@@ -9,8 +9,8 @@ pipeline {
     disableConcurrentBuilds()
   }
   
-  tools {
-    jdk 'JDK8_Centos' //Preinstalada en la Configuración del Master
+   tools {
+     jdk 'JDK8_Mac' //Preinstalada en la Configuración del Master
   }
   
   stages {
@@ -29,15 +29,6 @@ pipeline {
             ])
         }
     }
-
-    stage('Static Code Analysis') {
-        steps {
-            echo '------------>Análisis de código estático<------------'
-            //withSonarQubeEnv('Sonar') {
-            //    sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
-            //}
-        }
-    }
     
     stage('Build') {
       steps {
@@ -49,8 +40,17 @@ pipeline {
     stage('Unit Tests') {
       steps{
         echo "------------>Unit Tests<------------"
-        sh 'xcodebuild -scheme "ADNProject" -configuration "Debug" build test -destination "platform=iOS Simulator,name=iPhone 11,OS=13.3" -enableCodeCoverage YES'
+        //sh 'xcodebuild -scheme "ADNProject" -configuration "Debug" build test -destination "platform=iOS Simulator,name=iPhone 11,OS=13.3" -enableCodeCoverage YES'
       }
+    }
+
+    stage('Static Code Analysis') {
+        steps {
+            echo '------------>Análisis de código estático<------------'
+            withSonarQubeEnv('Sonar') {
+                sh "${tool name: 'SonarScanner', type:'hudson.plugins.sonar.SonarRunnerInstallation'}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
+            }
+        }
     }
   }
   
