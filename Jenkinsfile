@@ -15,17 +15,19 @@ pipeline {
   
   stages {
     stage('Checkout') {
-        // Checkout files.
-        checkout([
-            $class: 'GitSCM',
-            branches: [[name: 'master']],
-            doGenerateSubmoduleConfigurations: false,
-            extensions: [], submoduleCfg: [],
-            userRemoteConfigs: [[
-                credentialsId: 'GitHub_tiagogomez',
-                url: 'https://github.com/tiagogomez/ADNProject'
-            ]]
-        ])
+        steps {
+            // Checkout files.
+            checkout([
+                $class: 'GitSCM',
+                branches: [[name: 'master']],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [], submoduleCfg: [],
+                userRemoteConfigs: [[
+                    credentialsId: 'GitHub_tiagogomez',
+                    url: 'https://github.com/tiagogomez/ADNProject'
+                ]]
+            ])
+        }
     }
     
     stage('Static Code Analysis') {
