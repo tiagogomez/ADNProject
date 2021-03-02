@@ -43,7 +43,13 @@ pipeline {
       steps {
         echo "------------>Build<------------"
         sh 'xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED="NO"'
-        //sh 'xcodebuild -scheme "ADNProject" -configuration "Debug" clean build test -destination "platform=iOS Simulator,name=iPhone 11,OS=13.2" -enableCodeCoverage YES'
+      }
+    }
+    
+    stage('Unit Tests') {
+      steps{
+        echo "------------>Unit Tests<------------"
+        sh 'xcodebuild -scheme "ADNProject" -configuration "Debug" build test -destination "platform=iOS Simulator,name=iPhone 11,OS=13.2" -enableCodeCoverage YES'
       }
     }
   }
