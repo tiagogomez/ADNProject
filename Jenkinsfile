@@ -40,7 +40,7 @@ pipeline {
     stage('Unit Tests') {
       steps{
         echo "------------>Unit Tests<------------"
-        export VERSION=`defaults read ${INFO_PLIST} CFBundleVersionString`
+        export VERSION='defaults read ${INFO_PLIST} CFBundleVersionString'
         echo VERSION=$VERSION > version.properties
         sh 'xcodebuild test -scheme "ADNProject" -configuration "Debug" -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 11,OS=14.2"'
       }
