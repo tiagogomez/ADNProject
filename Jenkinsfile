@@ -14,7 +14,7 @@ pipeline {
   }
   
   stages {
-    stage('Checkout') {
+    /*stage('Checkout') {
         steps {
             // Checkout files.
             checkout([
@@ -28,19 +28,19 @@ pipeline {
                 ]]
             ])
         }
-    }
+    }*/
     
     stage('Build') {
       steps {
         echo "------------>Build<------------"
-        sh 'xcodebuild clean build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED="NO"'
+        sh 'xcodebuild -scheme "Domain" clean build CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED="NO"'
       }
     }
     
     stage('Unit Tests') {
       steps{
         echo "------------>Unit Tests<------------"
-        //sh 'xcodebuild test -scheme "ADNProject" -configuration "Debug" -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 11,OS=14.2"'
+        //sh 'xcodebuild -scheme "Domain" -configuration "Debug" build test -destination "platform=iOS Simulator,name=iPhone 11,OS=14.2" -enableCodeCoverage YES'
       }
     }
 
@@ -60,7 +60,6 @@ pipeline {
     }
     success {
         echo 'This will run only if successful'
-      // junit 'build/test-results/test/*.xml' → RUTA DE TUS ARCHIVOS .XML
     }
     failure {
         echo 'This will run only if failed'
