@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  ADNProject
+//  Presentation
 //
-//  Created by Santiago Gómez Giraldo - Ceiba Software on 1/03/21.
+//  Created by Santiago Gómez Giraldo - Ceiba Software on 4/03/21.
 //
 
 import UIKit

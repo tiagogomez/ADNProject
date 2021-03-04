@@ -1,14 +1,14 @@
 //
-//  ADNProjectTests.swift
-//  ADNProjectTests
+//  DataAccessLocalTests.swift
+//  DataAccessLocalTests
 //
-//  Created by Santiago Gómez Giraldo - Ceiba Software on 1/03/21.
+//  Created by Santiago Gómez Giraldo - Ceiba Software on 4/03/21.
 //
 
 import XCTest
-@testable import ADNProject
+@testable import DataAccessLocal
 
-class ADNProjectTests: XCTestCase {
+class DataAccessLocalTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -23,8 +23,11 @@ class ADNProjectTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 
-    func testDummy() {
-        XCTAssertTrue(true)
+    func testPerformanceExample() throws {
+        // This is an example of a performance test case.
+        self.measure {
+            // Put the code you want to measure the time of here.
+        }
     }
 
 }

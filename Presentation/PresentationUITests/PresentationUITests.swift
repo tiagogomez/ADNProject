@@ -1,13 +1,13 @@
 //
-//  ADNProjectUITests.swift
-//  ADNProjectUITests
+//  PresentationUITests.swift
+//  PresentationUITests
 //
-//  Created by Santiago Gómez Giraldo - Ceiba Software on 1/03/21.
+//  Created by Santiago Gómez Giraldo - Ceiba Software on 4/03/21.
 //
 
 import XCTest
 
-class ADNProjectUITests: XCTestCase {
+class PresentationUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
