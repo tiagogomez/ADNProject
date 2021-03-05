@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum VehicleType {
+public enum VehicleType: String {
     case car
     case motorcycle
 }

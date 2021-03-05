@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Car: Vehicle {
+public class Car: Vehicle {
 
     let cylinderCapacity: Int
     let licensePlate: String

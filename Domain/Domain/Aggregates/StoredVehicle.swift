@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class StoredVehicle {
+public final class StoredVehicle {
     
     let entryDate: Date
     let vehicle: Vehicle

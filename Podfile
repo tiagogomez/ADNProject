@@ -33,6 +33,7 @@ target 'DataAccessLocal' do
   target 'DataAccessLocalTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'RealmSwift'
   end
 
 end
