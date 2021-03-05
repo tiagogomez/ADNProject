@@ -1,3 +1,26 @@
-PODFILE CHECKSUM: 2b9798205b0d8b0619c03afb12eeaaf13802232c
+PODS:
+  - Realm (10.7.0):
+    - Realm/Headers (= 10.7.0)
+  - Realm/Headers (10.7.0)
+  - RealmSwift (10.7.0):
+    - Realm (= 10.7.0)
+  - Swinject (2.7.1)
+
+DEPENDENCIES:
+  - RealmSwift
+  - Swinject
+
+SPEC REPOS:
+  trunk:
+    - Realm
+    - RealmSwift
+    - Swinject
+
+SPEC CHECKSUMS:
+  Realm: a03c41a3afbda6c197ba4dfba5428b8b54cc2df4
+  RealmSwift: 5e7abc842276d7fabd386e67afbf3efde54eb1c6
+  Swinject: ddf78b8486dd9b71a667b852cad919ab4484478e
+
+PODFILE CHECKSUM: 292b176775fdf3aa7468f9607c7065f3f977b9e3
 
 COCOAPODS: 1.10.1

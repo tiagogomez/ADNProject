@@ -11,8 +11,8 @@ class Motorcycle: Vehicle {
 
     let cylinderCapacity: Int
     let licensePlate: String
-    let hourPrice = 1000
-    let dayPrice = 8000
+    let hourPrice = 500
+    let dayPrice = 4000
     
     init(cylinderCapacity: Int, licensePlate: String) {
         self.cylinderCapacity = cylinderCapacity
