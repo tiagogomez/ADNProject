@@ -19,7 +19,7 @@ class Bill {
         return (days * vehicle.getDayPrice()) + (hours * vehicle.getHourPrice()) + extraCostIfNeeded(for: vehicle)
     }
 
-    private func getStayedDaysAndHours(from entryDate: Date, to exitDate: Date?) -> (Int, Int) {
+    func getStayedDaysAndHours(from entryDate: Date, to exitDate: Date?) -> (Int, Int) {
         let currentCalendar = Calendar.current
         let numberOfDays = currentCalendar.dateComponents([.day, .hour], from: entryDate, to: exitDate ?? Date())
         var days = numberOfDays.day ?? 0
