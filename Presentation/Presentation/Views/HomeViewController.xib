@@ -77,8 +77,8 @@
                                 <constraint firstAttribute="height" constant="31" id="o5i-Z9-wir"/>
                             </constraints>
                             <segments>
-                                <segment title="Carro"/>
-                                <segment title="Moto"/>
+                                <segment title="car"/>
+                                <segment title="motorcycle"/>
                             </segments>
                         </segmentedControl>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dgx-xm-RRd">
@@ -88,6 +88,9 @@
                                 <constraint firstAttribute="width" constant="156" id="fz8-fD-jEM"/>
                             </constraints>
                             <state key="normal" title="Ingresar Vehículo"/>
+                            <connections>
+                                <action selector="entryVehicleButtonPressed:" destination="-1" eventType="touchDown" id="Ymv-SX-ZV4"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acciones" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="r9u-oT-pzS">
                             <rect key="frame" x="8" y="279" width="75" height="21"/>
@@ -105,6 +108,9 @@
                                 <constraint firstAttribute="height" constant="40" id="vrP-gk-geh"/>
                             </constraints>
                             <state key="normal" title="Sacar Vehículo"/>
+                            <connections>
+                                <action selector="exitVehicleButtonPressed:" destination="-1" eventType="touchDown" id="Q2C-Fs-v1z"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>

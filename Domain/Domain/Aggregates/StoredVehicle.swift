@@ -9,8 +9,8 @@ import Foundation
 
 public final class StoredVehicle {
     
-    let entryDate: Date
-    let vehicle: Vehicle
+    public let entryDate: Date
+    public let vehicle: Vehicle
     
     init(entryDate: Date, vehicle: Vehicle) {
         self.entryDate = entryDate

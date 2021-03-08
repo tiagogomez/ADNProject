@@ -7,19 +7,21 @@
 
 import Foundation
 
-class Bill {
+public class Bill {
+    
+    public init() {}
     
     let cylinderCapacityLimit = 500
     let fiveHundredCCExtraCost = 2000
 
-    func generateBill(for storedVehicle: StoredVehicle, with exitDate: Date) -> Int {
+    public func generateBill(for storedVehicle: StoredVehicle, with exitDate: Date) -> Int {
         let (days, hours) = getStayedDaysAndHours(from: storedVehicle.entryDate, to: exitDate)
         let vehicle = storedVehicle.vehicle
         
         return (days * vehicle.getDayPrice()) + (hours * vehicle.getHourPrice()) + extraCostIfNeeded(for: vehicle)
     }
 
-    func getStayedDaysAndHours(from entryDate: Date, to exitDate: Date?) -> (Int, Int) {
+    public func getStayedDaysAndHours(from entryDate: Date, to exitDate: Date?) -> (Int, Int) {
         let currentCalendar = Calendar.current
         let numberOfDays = currentCalendar.dateComponents([.day, .hour], from: entryDate, to: exitDate ?? Date())
         var days = numberOfDays.day ?? 0

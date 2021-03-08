@@ -12,7 +12,7 @@ public enum VehicleType: String {
     case motorcycle
 }
 
-protocol Vehicle {
+public protocol Vehicle {
     
     func getCylinderCapacity() -> Int
     

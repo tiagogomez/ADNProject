@@ -8,7 +8,17 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BillViewController" customModule="Presentation" customModuleProvider="target">
+            <connections>
+                <outlet property="ccLabel" destination="13m-o4-ldh" id="HBf-bQ-uce"/>
+                <outlet property="numberOfDaysLabel" destination="Abf-4S-JI4" id="Caw-3C-Omt"/>
+                <outlet property="numberOfHoursLabel" destination="okQ-dJ-G2v" id="48r-QF-UzS"/>
+                <outlet property="plateLabel" destination="gKS-kf-8Ux" id="y63-LS-9AZ"/>
+                <outlet property="priceLabel" destination="yTc-Kn-wRs" id="2SO-gv-avU"/>
+                <outlet property="vehicleType" destination="apt-w9-eNU" id="nqN-Rk-X07"/>
+                <outlet property="view" destination="iN0-l3-epB" id="qd4-v6-CyL"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -21,7 +31,7 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GeO-2P-qV9">
-                    <rect key="frame" x="20" y="44" width="374" height="818"/>
+                    <rect key="frame" x="20" y="114" width="374" height="748"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placa del Vehículo:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mjc-vc-aqH">
@@ -65,9 +75,9 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tipo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apt-w9-eNU">
-                            <rect key="frame" x="52" y="62" width="32" height="21"/>
+                            <rect key="frame" x="52" y="62" width="150" height="21"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="32" id="81g-X8-bWR"/>
+                                <constraint firstAttribute="width" constant="150" id="81g-X8-bWR"/>
                                 <constraint firstAttribute="height" constant="21" id="gus-ei-Hk8"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -75,10 +85,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dias" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Abf-4S-JI4">
-                            <rect key="frame" x="51" y="93" width="34" height="21"/>
+                            <rect key="frame" x="51" y="93" width="150" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="FDM-6I-TYI"/>
-                                <constraint firstAttribute="width" constant="34" id="U1e-Qz-ogr"/>
+                                <constraint firstAttribute="width" constant="150" id="U1e-Qz-ogr"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <nil key="textColor"/>
@@ -95,9 +105,9 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="horas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="okQ-dJ-G2v">
-                            <rect key="frame" x="69" y="124" width="47" height="21"/>
+                            <rect key="frame" x="69" y="124" width="150" height="21"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="47" id="3am-Ee-wj1"/>
+                                <constraint firstAttribute="width" constant="150" id="3am-Ee-wj1"/>
                                 <constraint firstAttribute="height" constant="21" id="nb6-Qv-ADR"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -115,19 +125,19 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="costo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTc-Kn-wRs">
-                            <rect key="frame" x="77" y="155" width="46" height="21"/>
+                            <rect key="frame" x="77" y="155" width="150" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="Eob-U5-T5C"/>
-                                <constraint firstAttribute="width" constant="46" id="qda-YC-Zua"/>
+                                <constraint firstAttribute="width" constant="150" id="qda-YC-Zua"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="placa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gKS-kf-8Ux">
-                            <rect key="frame" x="173" y="0.0" width="44" height="21"/>
+                            <rect key="frame" x="173" y="0.0" width="150" height="21"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="44" id="4TP-LM-aVn"/>
+                                <constraint firstAttribute="width" constant="150" id="4TP-LM-aVn"/>
                                 <constraint firstAttribute="height" constant="21" id="Vnd-7r-zJ2"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -135,10 +145,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cilindraje" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="13m-o4-ldh">
-                            <rect key="frame" x="93" y="31" width="75" height="21"/>
+                            <rect key="frame" x="93" y="31" width="150" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="C0d-Nk-z7B"/>
-                                <constraint firstAttribute="width" constant="75" id="FwK-gj-TPg"/>
+                                <constraint firstAttribute="width" constant="150" id="FwK-gj-TPg"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <nil key="textColor"/>
@@ -148,6 +158,9 @@
                             <rect key="frame" x="0.0" y="184" width="168" height="46"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Sacar Vehículo"/>
+                            <connections>
+                                <action selector="exitVehicleButtonPressed:" destination="-1" eventType="touchDown" id="KHW-Xt-sM9"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>

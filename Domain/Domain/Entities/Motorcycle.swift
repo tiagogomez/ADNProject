@@ -14,28 +14,28 @@ public class Motorcycle: Vehicle {
     let hourPrice = 500
     let dayPrice = 4000
     
-    init(cylinderCapacity: Int, licensePlate: String) {
+    public init(cylinderCapacity: Int, licensePlate: String) {
         self.cylinderCapacity = cylinderCapacity
         self.licensePlate = licensePlate
     }
     
-    func getCylinderCapacity() -> Int {
+    public func getCylinderCapacity() -> Int {
         return cylinderCapacity
     }
     
-    func getLicensePlate() -> String {
+    public func getLicensePlate() -> String {
         return licensePlate
     }
     
-    func getHourPrice() -> Int {
+    public func getHourPrice() -> Int {
         return hourPrice
     }
     
-    func getDayPrice() -> Int {
+    public func getDayPrice() -> Int {
         return dayPrice
     }
     
-    func vehicleType() -> VehicleType {
+    public func vehicleType() -> VehicleType {
         return VehicleType.motorcycle
     }
 }

@@ -9,19 +9,21 @@ import Foundation
 
 public final class Parking {
     
-    var storedVehicles: [StoredVehicle] = []
+    public var storedVehicles: [StoredVehicle] = []
     let carsLimit:Int
     let motorcyclesLimit: Int
     let restrictedPlateLetter = "a"
     let todayDate: Date
     
-    init(todayDate: Date = Date(), carsLimit: Int = 20, motorcyclesLimit: Int = 10) {
+    public static let shared = Parking()
+    
+    public init(todayDate: Date = Date(), carsLimit: Int = 20, motorcyclesLimit: Int = 10) {
         self.todayDate = todayDate
         self.carsLimit = carsLimit
         self.motorcyclesLimit = motorcyclesLimit
     }
     
-    func enterVehicle(licensePlate: String, cylinderCapacity: Int, type: VehicleType) -> Bool {
+    public func enterVehicle(licensePlate: String, cylinderCapacity: Int, type: VehicleType) -> Bool {
         var vehicle: Vehicle
         switch type {
         case .car:
@@ -38,6 +40,10 @@ public final class Parking {
         //Store vehicle
         storedVehicles.append(StoredVehicle(entryDate: todayDate, vehicle: vehicle))
         return true
+    }
+    
+    public func exitVehicle(storedVehicle: StoredVehicle) {
+        storedVehicles = storedVehicles.filter {$0.vehicle.getLicensePlate() != storedVehicle.vehicle.getLicensePlate()}
     }
     
     private func isThereCapacity(for vehicle: Vehicle) -> Bool {
