@@ -30,23 +30,37 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         
         guard let platesText = platesTextField.text, !platesText.isEmpty,
               let ccText = cylinderCapacityTextField.text, !ccText.isEmpty else {
-            self.present(setupAlert(), animated: true, completion:nil)
+            self.present(setupAlert(message: "Debe ingresar una placa y un cilindraje"),
+                         animated: true,
+                         completion:nil)
             return
         }
         getInputData()
-        let didStoreVehicle = Parking.shared.enterVehicle(licensePlate: plateString ?? String(),
-                                                          cylinderCapacity: ccValue ?? Int(),
-                                                          type: vehicleTypeString ?? .car)
-        guard didStoreVehicle else {
-            self.present(setupAlert(), animated: true, completion:nil)
+        do {
+            try Parking.shared.enterVehicle(licensePlate: plateString ?? String(),
+                                            cylinderCapacity: ccValue ?? Int(),
+                                            type: vehicleTypeString ?? .car)
+        }  catch ParkingErrors.PlateAlreadyIngressed(let message) {
+            self.present(setupAlert(message: message), animated: true, completion:nil)
+            return
+        } catch ParkingErrors.InvalidPlateForDay(let message) {
+            self.present(setupAlert(message: message), animated: true, completion:nil)
+            return
+        } catch ParkingErrors.NoCapacityForVehicle(let message) {
+            self.present(setupAlert(message: message), animated: true, completion:nil)
+            return
+        } catch {
+            self.present(setupAlert(message: "No se pudo realizar el ingreso del vehículo"), animated: true, completion:nil)
             return
         }
+        self.present(setupAlert(message: "Su vehículo ingresó correctamente",
+                                title: "Ingreso exitoso"), animated: true, completion:nil)
         clearFields()
     }
     
-    private func setupAlert() -> UIAlertController {
-        let alert = UIAlertController(title: "No puede ingresar",
-                                      message: "El vehiculo que ingresó no es valido",
+    private func setupAlert(message: String, title: String = "No puede ingresar") -> UIAlertController {
+        let alert = UIAlertController(title: title,
+                                      message: message,
                                       preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(alertAction)

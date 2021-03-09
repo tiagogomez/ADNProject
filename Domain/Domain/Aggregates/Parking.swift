@@ -23,7 +23,7 @@ public final class Parking {
         self.motorcyclesLimit = motorcyclesLimit
     }
     
-    public func enterVehicle(licensePlate: String, cylinderCapacity: Int, type: VehicleType) -> Bool {
+    public func enterVehicle(licensePlate: String, cylinderCapacity: Int, type: VehicleType) throws {
         var vehicle: Vehicle
         switch type {
         case .car:
@@ -31,15 +31,19 @@ public final class Parking {
         case .motorcycle:
             vehicle = Motorcycle(cylinderCapacity: cylinderCapacity, licensePlate: licensePlate)
         }
-        
-        guard isThereCapacity(for: vehicle) && isDayValidForPlate(licensePlate: licensePlate) else {
-            // throw error
-            return false
+
+        guard isPlateAlreadyIngressed(licensePlate: licensePlate) else {
+            throw ParkingErrors.PlateAlreadyIngressed()
+        }
+        guard isThereCapacity(for: vehicle) else {
+            throw ParkingErrors.NoCapacityForVehicle()
+        }
+        guard isDayValidForPlate(licensePlate: licensePlate) else {
+            throw ParkingErrors.InvalidPlateForDay()
         }
         
         //Store vehicle
         storedVehicles.append(StoredVehicle(entryDate: todayDate, vehicle: vehicle))
-        return true
     }
     
     public func exitVehicle(storedVehicle: StoredVehicle) {
@@ -70,6 +74,13 @@ public final class Parking {
         // weekday 1: Sunday
         // weekday 1: Monday
         if firstLetter == restrictedPlateLetter && (weekday == 1 || weekday == 2) {
+            return false
+        }
+        return true
+    }
+    
+    private func isPlateAlreadyIngressed(licensePlate: String) -> Bool {
+        if !(storedVehicles.filter {$0.vehicle.getLicensePlate() == licensePlate}.isEmpty) {
             return false
         }
         return true
