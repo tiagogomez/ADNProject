@@ -16,6 +16,7 @@ class BillViewController: UIViewController {
     @IBOutlet weak var numberOfDaysLabel: UILabel!
     @IBOutlet weak var numberOfHoursLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
+    private var parkingService: Parking?
     
     let storedVehicle: StoredVehicle
     let billService = Bill()
@@ -23,6 +24,8 @@ class BillViewController: UIViewController {
     init(storedVehicle: StoredVehicle) {
         self.storedVehicle = storedVehicle
         super.init(nibName: nil, bundle: nil)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.parkingService = appDelegate.diContainer.getContainer().resolve(Parking.self)!
     }
     
     required init?(coder: NSCoder) {
@@ -43,7 +46,7 @@ class BillViewController: UIViewController {
     }
     
     @IBAction func exitVehicleButtonPressed(_ sender: Any) {
-        Parking.shared.exitVehicle(storedVehicle: storedVehicle)
+        parkingService?.exitVehicle(storedVehicle: storedVehicle)
         self.navigationController?.popViewController(animated: true)
     }
 }

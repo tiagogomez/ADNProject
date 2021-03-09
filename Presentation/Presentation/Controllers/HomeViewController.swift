@@ -18,16 +18,19 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     private var plateString: String?
     private var ccValue: Int?
     private var vehicleTypeString: VehicleType?
+    private var parkingService: Parking?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         platesTextField.delegate = self
         cylinderCapacityTextField.delegate = self
         self.title = "Parking view"
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.parkingService = appDelegate.diContainer.getContainer().resolve(Parking.self)!
     }
     
     @IBAction func entryVehicleButtonPressed(_ sender: Any) {
-        
         guard let platesText = platesTextField.text, !platesText.isEmpty,
               let ccText = cylinderCapacityTextField.text, !ccText.isEmpty else {
             self.present(setupAlert(message: "Debe ingresar una placa y un cilindraje"),
@@ -36,10 +39,11 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
             return
         }
         getInputData()
+
         do {
-            try Parking.shared.enterVehicle(licensePlate: plateString ?? String(),
-                                            cylinderCapacity: ccValue ?? Int(),
-                                            type: vehicleTypeString ?? .car)
+            try parkingService?.enterVehicle(licensePlate: plateString ?? String(),
+                                             cylinderCapacity: ccValue ?? Int(),
+                                             type: vehicleTypeString ?? .car)
         }  catch ParkingErrors.PlateAlreadyIngressed(let message) {
             self.present(setupAlert(message: message), animated: true, completion:nil)
             return

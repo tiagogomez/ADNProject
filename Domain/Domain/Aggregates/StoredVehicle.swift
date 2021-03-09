@@ -12,7 +12,7 @@ public final class StoredVehicle {
     public let entryDate: Date
     public let vehicle: Vehicle
     
-    init(entryDate: Date, vehicle: Vehicle) {
+    public init(entryDate: Date, vehicle: Vehicle) {
         self.entryDate = entryDate
         self.vehicle = vehicle
     }

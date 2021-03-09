@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E483578516A97E28661326B /* Pods_DataAccessLocal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBA3489CC3BE238934022929 /* Pods_DataAccessLocal.framework */; };
-		4D07579925F278CD00BE9542 /* StoredVehicleRepositoryRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07579825F278CD00BE9542 /* StoredVehicleRepositoryRealm.swift */; };
+		4D07579925F278CD00BE9542 /* ParkingRepositoryRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07579825F278CD00BE9542 /* ParkingRepositoryRealm.swift */; };
 		4D1E6FFA25F13A10007B9915 /* DataAccessLocal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D1E6FF025F13A10007B9915 /* DataAccessLocal.framework */; };
 		4D1E6FFF25F13A10007B9915 /* DataAccessLocalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1E6FFE25F13A10007B9915 /* DataAccessLocalTests.swift */; };
 		4D554B1925F296FA00FDC14E /* StoredVehicleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D554B1825F296FA00FDC14E /* StoredVehicleEntity.swift */; };
@@ -44,7 +44,7 @@
 
 /* Begin PBXFileReference section */
 		31A8A31277466BFD85C7ACEF /* Pods-DataAccessLocal.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataAccessLocal.debug.xcconfig"; path = "Target Support Files/Pods-DataAccessLocal/Pods-DataAccessLocal.debug.xcconfig"; sourceTree = "<group>"; };
-		4D07579825F278CD00BE9542 /* StoredVehicleRepositoryRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredVehicleRepositoryRealm.swift; sourceTree = "<group>"; };
+		4D07579825F278CD00BE9542 /* ParkingRepositoryRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingRepositoryRealm.swift; sourceTree = "<group>"; };
 		4D1E6FF025F13A10007B9915 /* DataAccessLocal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataAccessLocal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D1E6FF425F13A10007B9915 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D1E6FF925F13A10007B9915 /* DataAccessLocalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataAccessLocalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,7 +85,7 @@
 		4D07579625F2788500BE9542 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				4D07579825F278CD00BE9542 /* StoredVehicleRepositoryRealm.swift */,
+				4D07579825F278CD00BE9542 /* ParkingRepositoryRealm.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -338,7 +338,7 @@
 			files = (
 				4D554B1C25F297B500FDC14E /* VehicleEntity.swift in Sources */,
 				4D554B1925F296FA00FDC14E /* StoredVehicleEntity.swift in Sources */,
-				4D07579925F278CD00BE9542 /* StoredVehicleRepositoryRealm.swift in Sources */,
+				4D07579925F278CD00BE9542 /* ParkingRepositoryRealm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

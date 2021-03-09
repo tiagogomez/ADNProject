@@ -11,6 +11,7 @@ import Domain
 class StoredVehiclesViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    private var parkingService: Parking?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,8 @@ class StoredVehiclesViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.title = "Stored vehicles"
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.parkingService = appDelegate.diContainer.getContainer().resolve(Parking.self)!
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -28,20 +31,22 @@ class StoredVehiclesViewController: UIViewController {
 extension StoredVehiclesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Parking.shared.storedVehicles.count
+        return parkingService?.getParkedVehicles().count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        let vehicle = Parking.shared.storedVehicles[indexPath.row].vehicle
-        let vehicleType = vehicle.vehicleType().rawValue
-        let licensePlate = vehicle.getLicensePlate()
+        let storedVehicles = parkingService?.getParkedVehicles()
+        let vehicle = storedVehicles?[indexPath.row].vehicle
+        let vehicleType = vehicle?.vehicleType().rawValue ?? "-"
+        let licensePlate = vehicle?.getLicensePlate() ?? "-"
         cell.textLabel?.text = "\(vehicleType) - placa: \(licensePlate)"
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vehicle = Parking.shared.storedVehicles[indexPath.row]
+        let storedVehicles = parkingService?.getParkedVehicles()
+        guard let vehicle = storedVehicles?[indexPath.row] else { return }
         let vc = BillViewController(storedVehicle: vehicle)
         
         self.navigationController?.pushViewController(vc, animated: true)

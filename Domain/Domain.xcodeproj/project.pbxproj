@@ -24,6 +24,7 @@
 		4D1E703D25F16C5D007B9915 /* StoredVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1E703C25F16C5D007B9915 /* StoredVehicle.swift */; };
 		4D1E703E25F16C5D007B9915 /* StoredVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1E703C25F16C5D007B9915 /* StoredVehicle.swift */; };
 		4D2EC56F25F7C5430025485C /* ParkingErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EC56E25F7C5430025485C /* ParkingErrors.swift */; };
+		4D2EC58925F7F8BA0025485C /* ParkingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EC58825F7F8BA0025485C /* ParkingRepository.swift */; };
 		5474F96C0132888513D41BEB /* Pods_Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82DA1917EBE239792B023B5E /* Pods_Domain.framework */; };
 		FDFE37EE36DDEC000C70BA5E /* Pods_DomainTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A109F18B1EDA58FDADE575A5 /* Pods_DomainTests.framework */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,7 @@
 		4D1E703525F16C26007B9915 /* Parking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parking.swift; sourceTree = "<group>"; };
 		4D1E703C25F16C5D007B9915 /* StoredVehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredVehicle.swift; sourceTree = "<group>"; };
 		4D2EC56E25F7C5430025485C /* ParkingErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingErrors.swift; sourceTree = "<group>"; };
+		4D2EC58825F7F8BA0025485C /* ParkingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingRepository.swift; sourceTree = "<group>"; };
 		7A0FC58C3B6C123CB8376BD6 /* Pods-DomainTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DomainTests.release.xcconfig"; path = "Target Support Files/Pods-DomainTests/Pods-DomainTests.release.xcconfig"; sourceTree = "<group>"; };
 		7C5DBBEBA73E22672CFE54D5 /* Pods-Domain.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Domain.release.xcconfig"; path = "Target Support Files/Pods-Domain/Pods-Domain.release.xcconfig"; sourceTree = "<group>"; };
 		82DA1917EBE239792B023B5E /* Pods_Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +119,7 @@
 		4D1E6FAC25F13727007B9915 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				4D2EC58325F7F84C0025485C /* Repository */,
 				4D2EC56B25F7C5190025485C /* Helpers */,
 				4D1E704125F16E5A007B9915 /* Services */,
 				4D1E702D25F14CC5007B9915 /* Aggregates */,
@@ -170,6 +173,14 @@
 				4D2EC56E25F7C5430025485C /* ParkingErrors.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4D2EC58325F7F84C0025485C /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				4D2EC58825F7F8BA0025485C /* ParkingRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		AC5E411ACFDD6B887819A8B3 /* Frameworks */ = {
@@ -345,6 +356,7 @@
 				4D2EC56F25F7C5430025485C /* ParkingErrors.swift in Sources */,
 				4D1E702925F149C0007B9915 /* Motorcycle.swift in Sources */,
 				4D1E701F25F14173007B9915 /* VehicleProtocol.swift in Sources */,
+				4D2EC58925F7F8BA0025485C /* ParkingRepository.swift in Sources */,
 				4D1E703D25F16C5D007B9915 /* StoredVehicle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

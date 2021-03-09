@@ -9,18 +9,25 @@ import Foundation
 
 public final class Parking {
     
-    public var storedVehicles: [StoredVehicle] = []
+//    public var storedVehicles: [StoredVehicle] = []
     let carsLimit:Int
     let motorcyclesLimit: Int
     let restrictedPlateLetter = "a"
     let todayDate: Date
-    
-    public static let shared = Parking()
-    
-    public init(todayDate: Date = Date(), carsLimit: Int = 20, motorcyclesLimit: Int = 10) {
+    let parkingRepository: ParkingRepository
+        
+    public init(todayDate: Date = Date(),
+                carsLimit: Int = 20,
+                motorcyclesLimit: Int = 10,
+                parkingRepository: ParkingRepository) {
         self.todayDate = todayDate
         self.carsLimit = carsLimit
         self.motorcyclesLimit = motorcyclesLimit
+        self.parkingRepository = parkingRepository
+    }
+    
+    public func getParkedVehicles() -> [StoredVehicle] {
+        return parkingRepository.getStoredVehicles()
     }
     
     public func enterVehicle(licensePlate: String, cylinderCapacity: Int, type: VehicleType) throws {
@@ -42,15 +49,20 @@ public final class Parking {
             throw ParkingErrors.InvalidPlateForDay()
         }
         
-        //Store vehicle
-        storedVehicles.append(StoredVehicle(entryDate: todayDate, vehicle: vehicle))
+//        storedVehicles.append(StoredVehicle(entryDate: todayDate, vehicle: vehicle))
+        parkingRepository.storeVehicle(licensePlate: licensePlate,
+                                       cylinderCapacity: cylinderCapacity,
+                                       vehicleType: type.rawValue,
+                                       date: todayDate)
     }
     
     public func exitVehicle(storedVehicle: StoredVehicle) {
-        storedVehicles = storedVehicles.filter {$0.vehicle.getLicensePlate() != storedVehicle.vehicle.getLicensePlate()}
+//        storedVehicles = storedVehicles.filter {$0.vehicle.getLicensePlate() != storedVehicle.vehicle.getLicensePlate()}
+        parkingRepository.removeStoredVehicle(vehicle: storedVehicle)
     }
     
     private func isThereCapacity(for vehicle: Vehicle) -> Bool {
+        let storedVehicles = parkingRepository.getStoredVehicles()
         switch vehicle.vehicleType() {
         case .car:
             let storedCars = storedVehicles.filter {$0.vehicle.vehicleType() == .car}.count
@@ -80,6 +92,7 @@ public final class Parking {
     }
     
     private func isPlateAlreadyIngressed(licensePlate: String) -> Bool {
+        let storedVehicles = parkingRepository.getStoredVehicles()
         if !(storedVehicles.filter {$0.vehicle.getLicensePlate() == licensePlate}.isEmpty) {
             return false
         }
