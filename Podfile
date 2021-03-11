@@ -37,16 +37,3 @@ target 'DataAccessLocal' do
   end
 
 end
-
-target 'Domain' do
- 
-  project 'Domain/Domain.xcodeproj'
-
-  # Pods for Domain
- 
-  target 'DomainTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-end
