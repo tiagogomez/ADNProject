@@ -9,7 +9,6 @@ import Foundation
 
 public final class Parking {
     
-//    public var storedVehicles: [StoredVehicle] = []
     let carsLimit:Int
     let motorcyclesLimit: Int
     let restrictedPlateLetter = "a"
@@ -49,7 +48,6 @@ public final class Parking {
             throw ParkingErrors.InvalidPlateForDay()
         }
         
-//        storedVehicles.append(StoredVehicle(entryDate: todayDate, vehicle: vehicle))
         parkingRepository.storeVehicle(licensePlate: licensePlate,
                                        cylinderCapacity: cylinderCapacity,
                                        vehicleType: type.rawValue,
@@ -57,7 +55,6 @@ public final class Parking {
     }
     
     public func exitVehicle(storedVehicle: StoredVehicle) {
-//        storedVehicles = storedVehicles.filter {$0.vehicle.getLicensePlate() != storedVehicle.vehicle.getLicensePlate()}
         parkingRepository.removeStoredVehicle(vehicle: storedVehicle)
     }
     
@@ -85,7 +82,7 @@ public final class Parking {
         
         // weekday 1: Sunday
         // weekday 1: Monday
-        if firstLetter == restrictedPlateLetter && (weekday == 1 || weekday == 2) {
+        guard firstLetter == restrictedPlateLetter && (weekday == 1 || weekday == 2) else {
             return false
         }
         return true

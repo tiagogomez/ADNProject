@@ -10,10 +10,10 @@ import RealmSwift
 
 public class ParkingRepositoryRealm: ParkingRepository {
     
-    private var database: Realm
+    private var database: Realm?
     
     public init() {
-        try! database = Realm()
+        try? database = Realm()
     }
     
     public func storeVehicle(licensePlate: String, cylinderCapacity: Int, vehicleType: String, date: Date) {
@@ -25,27 +25,31 @@ public class ParkingRepositoryRealm: ParkingRepository {
         storedVehicle.entryDate = date
         storedVehicle.vehicle = vehicle
         
-        try! database.write() {
-            database.add(storedVehicle)
+        try? database?.write() {
+            database?.add(storedVehicle)
         }
     }
     
     public func getStoredVehicles() -> [StoredVehicle] {
-        let storedEntities = database.objects(StoredVehicleEntity.self)
+        let storedEntities = database?.objects(StoredVehicleEntity.self)
         
         return mapStoredEntityToStoredVehicle(entities: storedEntities)
     }
     
     public func removeStoredVehicle(vehicle: StoredVehicle) {
-//        let vehicleToRemove = storedVehicleToEntity(storedVehicle: vehicle)
-        let vehicleToRemove = database.objects(StoredVehicleEntity.self).filter("vehicle.licensePlate=%@",vehicle.vehicle.getLicensePlate())
-        try! database.write {
-            database.delete(vehicleToRemove)
+        guard let vehicleToRemove = database?.objects(StoredVehicleEntity.self).filter("vehicle.licensePlate=%@",vehicle.vehicle.getLicensePlate()) else {
+            return
+        }
+        try? database?.write {
+            database?.delete(vehicleToRemove)
         }
     }
     
-    private func mapStoredEntityToStoredVehicle(entities: Results<StoredVehicleEntity>) -> [StoredVehicle] {
+    private func mapStoredEntityToStoredVehicle(entities: Results<StoredVehicleEntity>?) -> [StoredVehicle] {
         var storedVehicles: [StoredVehicle] = []
+        guard let entities = entities else {
+            return storedVehicles
+        }
         for entity in entities {
             var vehicle: Vehicle
 
@@ -63,17 +67,4 @@ public class ParkingRepositoryRealm: ParkingRepository {
         }
         return storedVehicles
     }
-    
-//    private func storedVehicleToEntity(storedVehicle: StoredVehicle) -> StoredVehicleEntity {
-//        let vehicleEntity = VehicleEntity()
-//        vehicleEntity.licensePlate = storedVehicle.vehicle.getLicensePlate()
-//        vehicleEntity.cylinderCapacity = storedVehicle.vehicle.getCylinderCapacity()
-//        vehicleEntity.vehicleType = storedVehicle.vehicle.vehicleType().rawValue
-//
-//        let storedVehicleEntity = StoredVehicleEntity()
-//        storedVehicleEntity.entryDate = storedVehicle.entryDate
-//        storedVehicleEntity.vehicle = vehicleEntity
-//
-//        return storedVehicleEntity
-//    }
 }
