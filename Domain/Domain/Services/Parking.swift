@@ -82,7 +82,7 @@ public final class Parking {
         
         // weekday 1: Sunday
         // weekday 1: Monday
-        guard firstLetter == restrictedPlateLetter && (weekday == 1 || weekday == 2) else {
+        if firstLetter == restrictedPlateLetter && (weekday != 1 && weekday != 2) {
             return false
         }
         return true

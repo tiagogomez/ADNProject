@@ -25,6 +25,9 @@
 		4D1E703E25F16C5D007B9915 /* StoredVehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1E703C25F16C5D007B9915 /* StoredVehicle.swift */; };
 		4D2EC56F25F7C5430025485C /* ParkingErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EC56E25F7C5430025485C /* ParkingErrors.swift */; };
 		4D2EC58925F7F8BA0025485C /* ParkingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EC58825F7F8BA0025485C /* ParkingRepository.swift */; };
+		4D2EC7CB25FAB3B80025485C /* ParkingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EC58825F7F8BA0025485C /* ParkingRepository.swift */; };
+		4D2EC7DB25FAB40B0025485C /* MockParkingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EC7DA25FAB40B0025485C /* MockParkingRepository.swift */; };
+		4D2EC7E225FAB7090025485C /* ParkingErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EC56E25F7C5430025485C /* ParkingErrors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,7 @@
 		4D1E703C25F16C5D007B9915 /* StoredVehicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredVehicle.swift; sourceTree = "<group>"; };
 		4D2EC56E25F7C5430025485C /* ParkingErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingErrors.swift; sourceTree = "<group>"; };
 		4D2EC58825F7F8BA0025485C /* ParkingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingRepository.swift; sourceTree = "<group>"; };
+		4D2EC7DA25FAB40B0025485C /* MockParkingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockParkingRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,7 @@
 		4D1E6FB725F13728007B9915 /* DomainTests */ = {
 			isa = PBXGroup;
 			children = (
+				4D2EC7D925FAB3F20025485C /* Mocks */,
 				4D1E6FB825F13728007B9915 /* ParkingTests.swift */,
 				4D07578325F26F1C00BE9542 /* BillTests.swift */,
 				4D1E6FBA25F13728007B9915 /* Info.plist */,
@@ -129,7 +134,6 @@
 		4D1E702D25F14CC5007B9915 /* Aggregates */ = {
 			isa = PBXGroup;
 			children = (
-				4D1E703525F16C26007B9915 /* Parking.swift */,
 				4D1E703C25F16C5D007B9915 /* StoredVehicle.swift */,
 			);
 			path = Aggregates;
@@ -139,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				4D1E702E25F14CDD007B9915 /* Bill.swift */,
+				4D1E703525F16C26007B9915 /* Parking.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -157,6 +162,14 @@
 				4D2EC58825F7F8BA0025485C /* ParkingRepository.swift */,
 			);
 			path = Repository;
+			sourceTree = "<group>";
+		};
+		4D2EC7D925FAB3F20025485C /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				4D2EC7DA25FAB40B0025485C /* MockParkingRepository.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,11 +296,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D2EC7E225FAB7090025485C /* ParkingErrors.swift in Sources */,
+				4D2EC7CB25FAB3B80025485C /* ParkingRepository.swift in Sources */,
 				4D07578525F26F1C00BE9542 /* BillTests.swift in Sources */,
 				4D1E702A25F149C0007B9915 /* Motorcycle.swift in Sources */,
 				4D1E703025F14CDD007B9915 /* Bill.swift in Sources */,
 				4D1E702025F14173007B9915 /* VehicleProtocol.swift in Sources */,
 				4D1E703E25F16C5D007B9915 /* StoredVehicle.swift in Sources */,
+				4D2EC7DB25FAB40B0025485C /* MockParkingRepository.swift in Sources */,
 				4D1E6FB925F13728007B9915 /* ParkingTests.swift in Sources */,
 				4D1E703725F16C26007B9915 /* Parking.swift in Sources */,
 				4D1E702525F14681007B9915 /* Car.swift in Sources */,
