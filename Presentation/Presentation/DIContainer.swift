@@ -18,8 +18,9 @@ public class DIContainer {
             _ in ParkingRepositoryRealm()
         }
         
-        container.register(Parking.self) {
-            repository in Parking(parkingRepository: repository.resolve(ParkingRepository.self)!)
+        container.register(ParkingService.self) {
+            repository in ParkingService(parkingEntity: ParkingEntity(),
+                                         parkingRepository: repository.resolve(ParkingRepository.self)!)
         }
     }
     

@@ -1,5 +1,5 @@
 //
-//  Parking.swift
+//  ParkingService.swift
 //  Domain
 //
 //  Created by Santiago Gómez Giraldo - Ceiba Software on 4/03/21.
@@ -7,21 +7,14 @@
 
 import Foundation
 
-public final class Parking {
+public final class ParkingService {
     
-    let carsLimit:Int
-    let motorcyclesLimit: Int
-    let restrictedPlateLetter = "a"
-    let todayDate: Date
-    let parkingRepository: ParkingRepository
+    private let parkingEntity: ParkingEntity
+    private let parkingRepository: ParkingRepository
         
-    public init(todayDate: Date = Date(),
-                carsLimit: Int = 20,
-                motorcyclesLimit: Int = 10,
+    public init(parkingEntity: ParkingEntity,
                 parkingRepository: ParkingRepository) {
-        self.todayDate = todayDate
-        self.carsLimit = carsLimit
-        self.motorcyclesLimit = motorcyclesLimit
+        self.parkingEntity = parkingEntity
         self.parkingRepository = parkingRepository
     }
     
@@ -39,19 +32,19 @@ public final class Parking {
         }
 
         guard isPlateAlreadyIngressed(licensePlate: licensePlate) else {
-            throw ParkingErrors.PlateAlreadyIngressed()
+            throw ParkingErrors.plateAlreadyIngressed
         }
         guard isThereCapacity(for: vehicle) else {
-            throw ParkingErrors.NoCapacityForVehicle()
+            throw ParkingErrors.noCapacityForVehicle
         }
         guard isDayValidForPlate(licensePlate: licensePlate) else {
-            throw ParkingErrors.InvalidPlateForDay()
+            throw ParkingErrors.invalidPlateForDay
         }
         
         parkingRepository.storeVehicle(licensePlate: licensePlate,
                                        cylinderCapacity: cylinderCapacity,
                                        vehicleType: type.rawValue,
-                                       date: todayDate)
+                                       date: parkingEntity.todayDate)
     }
     
     public func exitVehicle(storedVehicle: StoredVehicle) {
@@ -63,13 +56,13 @@ public final class Parking {
         switch vehicle.vehicleType() {
         case .car:
             let storedCars = storedVehicles.filter {$0.vehicle.vehicleType() == .car}.count
-            guard storedCars < carsLimit else {
+            guard storedCars < parkingEntity.carsLimit else {
                 return false
             }
             return true
         case .motorcycle:
             let storedMotorcycles = storedVehicles.filter {$0.vehicle.vehicleType() == .motorcycle}.count
-            guard storedMotorcycles < motorcyclesLimit else {
+            guard storedMotorcycles < parkingEntity.motorcyclesLimit else {
                 return false
             }
             return true
@@ -78,11 +71,11 @@ public final class Parking {
     
     private func isDayValidForPlate(licensePlate: String) -> Bool {
         let firstLetter = licensePlate.first?.lowercased()
-        let weekday = Calendar.current.component(.weekday, from: todayDate)
+        let weekday = Calendar.current.component(.weekday, from: parkingEntity.todayDate)
         
         // weekday 1: Sunday
         // weekday 1: Monday
-        if firstLetter == restrictedPlateLetter && (weekday != 1 && weekday != 2) {
+        if firstLetter == parkingEntity.restrictedPlateLetter && (weekday != 1 && weekday != 2) {
             return false
         }
         return true

@@ -11,7 +11,7 @@ import Domain
 class StoredVehiclesViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    private var parkingService: Parking?
+    private var parkingService: ParkingService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +20,7 @@ class StoredVehiclesViewController: UIViewController {
         self.tableView.dataSource = self
         self.title = "Stored vehicles"
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.parkingService = appDelegate.diContainer.getContainer().resolve(Parking.self)!
+        self.parkingService = appDelegate.diContainer.getContainer().resolve(ParkingService.self)!
     }
     
     override func viewDidAppear(_ animated: Bool) {

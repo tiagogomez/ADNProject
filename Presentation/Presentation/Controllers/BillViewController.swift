@@ -16,16 +16,16 @@ class BillViewController: UIViewController {
     @IBOutlet weak var numberOfDaysLabel: UILabel!
     @IBOutlet weak var numberOfHoursLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    private var parkingService: Parking?
+    private var parkingService: ParkingService?
     
     let storedVehicle: StoredVehicle
-    let billService = Bill()
+    let billService = BillService(billEntity: BillEntity())
     
     init(storedVehicle: StoredVehicle) {
         self.storedVehicle = storedVehicle
         super.init(nibName: nil, bundle: nil)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.parkingService = appDelegate.diContainer.getContainer().resolve(Parking.self)!
+        self.parkingService = appDelegate.diContainer.getContainer().resolve(ParkingService.self)!
     }
     
     required init?(coder: NSCoder) {
@@ -38,11 +38,10 @@ class BillViewController: UIViewController {
         self.plateLabel.text = storedVehicle.vehicle.getLicensePlate()
         self.ccLabel.text = String(storedVehicle.vehicle.getCylinderCapacity())
         self.vehicleType.text = storedVehicle.vehicle.vehicleType().rawValue
-        let (days, hours) = billService.getStayedDaysAndHours(from: storedVehicle.entryDate, to: Date())
-        self.numberOfDaysLabel.text = String(days)
-        self.numberOfHoursLabel.text = String(hours)
-        let cost = billService.generateBill(for: storedVehicle, with: Date())
-        priceLabel.text = String(cost)
+        let bill = billService.generateBill(for: storedVehicle, with: Date())
+        self.numberOfDaysLabel.text = String(bill.stayedDays ?? 0)
+        self.numberOfHoursLabel.text = String(bill.stayedHours ?? 0)
+        priceLabel.text = String(bill.billCost ?? 0)
     }
     
     @IBAction func exitVehicleButtonPressed(_ sender: Any) {

@@ -1,5 +1,5 @@
 //
-//  Motorcycle.swift
+//  Vehicle.swift
 //  Domain
 //
 //  Created by Santiago Gómez Giraldo - Ceiba Software on 4/03/21.
@@ -7,16 +7,23 @@
 
 import Foundation
 
-public class Motorcycle: Vehicle {
+public enum VehicleType: String {
+    case car
+    case motorcycle
+}
 
-    let cylinderCapacity: Int
-    let licensePlate: String
-    let hourPrice = 500
-    let dayPrice = 4000
+public class Vehicle {
     
-    public init(cylinderCapacity: Int, licensePlate: String) {
+    private let cylinderCapacity: Int
+    private let licensePlate: String
+    private let hourPrice: Int
+    private let dayPrice: Int
+    
+    public init(cylinderCapacity: Int, licensePlate: String, hourPrice: Int, dayPrice: Int) {
         self.cylinderCapacity = cylinderCapacity
         self.licensePlate = licensePlate
+        self.hourPrice = hourPrice
+        self.dayPrice = dayPrice
     }
     
     public func getCylinderCapacity() -> Int {
@@ -24,7 +31,7 @@ public class Motorcycle: Vehicle {
     }
     
     public func getLicensePlate() -> String {
-        return licensePlate
+       return licensePlate
     }
     
     public func getHourPrice() -> Int {
@@ -36,6 +43,6 @@ public class Motorcycle: Vehicle {
     }
     
     public func vehicleType() -> VehicleType {
-        return VehicleType.motorcycle
+        return VehicleType.car
     }
 }

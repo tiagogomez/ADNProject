@@ -24,13 +24,13 @@ class BillTests: XCTestCase {
         let exitDate = dateFormatter.date(from: stringExitDate)
         
         let storedVehicle = StoredVehicle(entryDate: entryDate!, vehicle: storedCar)
-        let bill = Bill()
+        let billService = BillService(billEntity: BillEntity())
         
         //Test
-        let billCost = bill.generateBill(for: storedVehicle, with: exitDate!)
+        let bill = billService.generateBill(for: storedVehicle, with: exitDate!)
         
         //Verify
-        XCTAssertEqual(billCost, 24000)
+        XCTAssertEqual(bill.billCost, 24000)
     }
     
     func testGenerateBill_ForStoredMotorcycle_ForThreeDays_ShouldReturn12000() {
@@ -47,13 +47,13 @@ class BillTests: XCTestCase {
         let exitDate = dateFormatter.date(from: stringExitDate)
         
         let storedVehicle = StoredVehicle(entryDate: entryDate!, vehicle: storedCar)
-        let bill = Bill()
+        let billService = BillService(billEntity: BillEntity())
         
         //Test
-        let billCost = bill.generateBill(for: storedVehicle, with: exitDate!)
+        let bill = billService.generateBill(for: storedVehicle, with: exitDate!)
         
         //Verify
-        XCTAssertEqual(billCost, 12000)
+        XCTAssertEqual(bill.billCost, 12000)
     }
     
     func testGenerateBill_ForStoredMotorcycle_ForThreeDaysWith500CC_ShouldReturn14000() {
@@ -70,13 +70,13 @@ class BillTests: XCTestCase {
         let exitDate = dateFormatter.date(from: stringExitDate)
         
         let storedVehicle = StoredVehicle(entryDate: entryDate!, vehicle: storedCar)
-        let bill = Bill()
+        let billService = BillService(billEntity: BillEntity())
         
         //Test
-        let billCost = bill.generateBill(for: storedVehicle, with: exitDate!)
+        let bill = billService.generateBill(for: storedVehicle, with: exitDate!)
         
         //Verify
-        XCTAssertEqual(billCost, 14000)
+        XCTAssertEqual(bill.billCost, 14000)
     }
     
     func testGenerateBill_ForStoredCar_ForThreeHours_ShouldReturn3000() {
@@ -93,13 +93,13 @@ class BillTests: XCTestCase {
         let exitDate = dateFormatter.date(from: stringExitDate)
         
         let storedVehicle = StoredVehicle(entryDate: entryDate!, vehicle: storedCar)
-        let bill = Bill()
+        let billService = BillService(billEntity: BillEntity())
         
         //Test
-        let billCost = bill.generateBill(for: storedVehicle, with: exitDate!)
+        let bill = billService.generateBill(for: storedVehicle, with: exitDate!)
         
         //Verify
-        XCTAssertEqual(billCost, 3000)
+        XCTAssertEqual(bill.billCost, 3000)
     }
     
     func testGenerateBill_ForStoredCar_ForNineHours_ShouldReturnDayPrice() {
@@ -116,13 +116,13 @@ class BillTests: XCTestCase {
         let exitDate = dateFormatter.date(from: stringExitDate)
         
         let storedVehicle = StoredVehicle(entryDate: entryDate!, vehicle: storedCar)
-        let bill = Bill()
+        let billService = BillService(billEntity: BillEntity())
         
         //Test
-        let billCost = bill.generateBill(for: storedVehicle, with: exitDate!)
+        let bill = billService.generateBill(for: storedVehicle, with: exitDate!)
         
         //Verify
-        XCTAssertEqual(billCost, 8000)
+        XCTAssertEqual(bill.billCost, 8000)
     }
 
 }

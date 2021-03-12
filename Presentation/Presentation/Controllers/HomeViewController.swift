@@ -18,7 +18,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     private var plateString: String?
     private var ccValue: Int?
     private var vehicleTypeString: VehicleType?
-    private var parkingService: Parking?
+    private var parkingService: ParkingService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         self.title = "Parking view"
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.parkingService = appDelegate.diContainer.getContainer().resolve(Parking.self)!
+        self.parkingService = appDelegate.diContainer.getContainer().resolve(ParkingService.self)!
     }
     
     @IBAction func entryVehicleButtonPressed(_ sender: Any) {
@@ -44,14 +44,8 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
             try parkingService?.enterVehicle(licensePlate: plateString ?? String(),
                                              cylinderCapacity: ccValue ?? Int(),
                                              type: vehicleTypeString ?? .car)
-        }  catch ParkingErrors.PlateAlreadyIngressed(let message) {
-            self.present(setupAlert(message: message), animated: true, completion:nil)
-            return
-        } catch ParkingErrors.InvalidPlateForDay(let message) {
-            self.present(setupAlert(message: message), animated: true, completion:nil)
-            return
-        } catch ParkingErrors.NoCapacityForVehicle(let message) {
-            self.present(setupAlert(message: message), animated: true, completion:nil)
+        } catch let error as ParkingErrors {
+            self.present(setupAlert(message: error.errorDescription), animated: true, completion:nil)
             return
         } catch {
             self.present(setupAlert(message: "No se pudo realizar el ingreso del vehículo"), animated: true, completion:nil)
@@ -62,6 +56,12 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         clearFields()
     }
     
+    @IBAction func exitVehicleButtonPressed(_ sender: Any) {
+        let vc = StoredVehiclesViewController()
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+
     private func setupAlert(message: String, title: String = "No puede ingresar") -> UIAlertController {
         let alert = UIAlertController(title: title,
                                       message: message,
@@ -71,18 +71,12 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         return alert
     }
     
-    @IBAction func exitVehicleButtonPressed(_ sender: Any) {
-        let vc = StoredVehiclesViewController()
-        
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    func clearFields() {
+    private func clearFields() {
         platesTextField.text = String()
         cylinderCapacityTextField.text = String()
     }
     
-    func getInputData() {
+    private func getInputData() {
         plateString = platesTextField.text
         ccValue = Int(cylinderCapacityTextField.text ?? "0")
         vehicleTypeString = VehicleType(rawValue: vehicleType.titleForSegment(at: vehicleType.selectedSegmentIndex) ?? "car")
@@ -101,5 +95,17 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
             return allowedCharacters.isSuperset(of: characterSet) && string.containsValidCharacter
         }
         return false
+    }
+}
+
+fileprivate extension String {
+    
+    // Si hay muchas crear carpeta aparte Strin+CheckValidCharacters
+    // Si son especificas de un proyecto crear clase propia
+    var containsValidCharacter: Bool {
+        guard self != "" else { return true }
+        let hexSet = CharacterSet(charactersIn: "1234567890ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
+        let newSet = CharacterSet(charactersIn: self)
+        return hexSet.isSuperset(of: newSet)
     }
 }

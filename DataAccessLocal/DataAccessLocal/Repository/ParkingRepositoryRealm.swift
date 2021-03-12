@@ -10,11 +10,9 @@ import RealmSwift
 
 public class ParkingRepositoryRealm: ParkingRepository {
     
-    private var database: Realm?
+    private let realmConfig = RealmConfiguration()
     
-    public init() {
-        try? database = Realm()
-    }
+    public init() {}
     
     public func storeVehicle(licensePlate: String, cylinderCapacity: Int, vehicleType: String, date: Date) {
         let vehicle = VehicleEntity()
@@ -25,46 +23,24 @@ public class ParkingRepositoryRealm: ParkingRepository {
         storedVehicle.entryDate = date
         storedVehicle.vehicle = vehicle
         
-        try? database?.write() {
-            database?.add(storedVehicle)
+        try? realmConfig.database?.write() {
+            realmConfig.database?.add(storedVehicle)
         }
     }
     
     public func getStoredVehicles() -> [StoredVehicle] {
-        let storedEntities = database?.objects(StoredVehicleEntity.self)
+        let storedEntities = realmConfig.database?.objects(StoredVehicleEntity.self)
+        let vehicleTranslator = VehicleTranslator()
         
-        return mapStoredEntityToStoredVehicle(entities: storedEntities)
+        return vehicleTranslator.mapStoredEntityToStoredVehicle(entities: storedEntities)
     }
     
     public func removeStoredVehicle(vehicle: StoredVehicle) {
-        guard let vehicleToRemove = database?.objects(StoredVehicleEntity.self).filter("vehicle.licensePlate=%@",vehicle.vehicle.getLicensePlate()) else {
+        guard let vehicleToRemove = realmConfig.database?.objects(StoredVehicleEntity.self).filter("vehicle.licensePlate=%@",vehicle.vehicle.getLicensePlate()) else {
             return
         }
-        try? database?.write {
-            database?.delete(vehicleToRemove)
+        try? realmConfig.database?.write {
+            realmConfig.database?.delete(vehicleToRemove)
         }
-    }
-    
-    private func mapStoredEntityToStoredVehicle(entities: Results<StoredVehicleEntity>?) -> [StoredVehicle] {
-        var storedVehicles: [StoredVehicle] = []
-        guard let entities = entities else {
-            return storedVehicles
-        }
-        for entity in entities {
-            var vehicle: Vehicle
-
-            guard let vehicleEntity = entity.vehicle,
-                  let vehicleType = VehicleType(rawValue: vehicleEntity.vehicleType) else {
-                break
-            }
-            switch vehicleType {
-            case .car:
-                vehicle = Car(cylinderCapacity: vehicleEntity.cylinderCapacity, licensePlate: vehicleEntity.licensePlate)
-            case .motorcycle:
-                vehicle = Motorcycle(cylinderCapacity: vehicleEntity.cylinderCapacity, licensePlate: vehicleEntity.licensePlate)
-            }
-            storedVehicles.append(StoredVehicle(entryDate: entity.entryDate, vehicle: vehicle))
-        }
-        return storedVehicles
     }
 }

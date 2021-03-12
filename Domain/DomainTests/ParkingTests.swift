@@ -10,11 +10,12 @@ import XCTest
 
 class ParkingTests: XCTestCase {
     
-    func testEnterVehicle_WithValidVehicle_ShouldStoreTheVehicle() {
+    func testEnterVehicle_withValidVehicle_shouldStoreTheVehicle() {
         //Setup
         let mockCylinderCapacity = 100
         let mockLicensePlate = "B5830"
-        let parking = Parking(parkingRepository: MockParkingRepository())
+        let parking = ParkingService(parkingEntity: ParkingEntity(),
+                                     parkingRepository: MockParkingRepository())
         
         //Test
         try? parking.enterVehicle(licensePlate: mockLicensePlate, cylinderCapacity: mockCylinderCapacity, type: .car)
@@ -25,7 +26,7 @@ class ParkingTests: XCTestCase {
         XCTAssertEqual(storedCar?.getLicensePlate(), mockLicensePlate)
     }
     
-    func testEnterVehicle_With_A_StartingPlateOnTuesday_ShouldNotStoreTheVehicle() {
+    func testEnterVehicle_withAStartingPlateOnTuesday_shouldNotStoreTheVehicle() {
         //Setup
         let mockCylinderCapacity = 100
         let mockLicensePlate = "A5830"
@@ -33,7 +34,8 @@ class ParkingTests: XCTestCase {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from: stringDate)
-        let parking = Parking(todayDate: date!, parkingRepository: MockParkingRepository())
+        let parking = ParkingService(parkingEntity: ParkingEntity(todayDate: date!),
+                                     parkingRepository: MockParkingRepository())
         
         //Test
         try? parking.enterVehicle(licensePlate: mockLicensePlate, cylinderCapacity: mockCylinderCapacity, type: .car)
@@ -43,7 +45,7 @@ class ParkingTests: XCTestCase {
         XCTAssertTrue(storedCars.isEmpty)
     }
     
-    func testEnterVehicle_With_A_StartingPlateOnMonday_ShouldStoreTheVehicle() {
+    func testEnterVehicle_withAStartingPlateOnMonday_shouldStoreTheVehicle() {
         //Setup
         let mockCylinderCapacity = 100
         let mockLicensePlate = "A5830"
@@ -51,7 +53,8 @@ class ParkingTests: XCTestCase {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from: stringDate)
-        let parking = Parking(todayDate: date!, parkingRepository: MockParkingRepository())
+        let parking = ParkingService(parkingEntity: ParkingEntity(todayDate: date!),
+                                     parkingRepository: MockParkingRepository())
         
         //Test
         try? parking.enterVehicle(licensePlate: mockLicensePlate, cylinderCapacity: mockCylinderCapacity, type: .car)
@@ -62,22 +65,23 @@ class ParkingTests: XCTestCase {
         XCTAssertEqual(storedCar?.getLicensePlate(), mockLicensePlate)
     }
     
-    func testEnterVehicle_WithValidVehicleButNoParkingCapacity_ShouldNotStoreTheVehicle() {
+    func testEnterVehicle_withValidVehicleButNoParkingCapacity_shouldNotStoreTheVehicle() {
         //Setup
         let mockCylinderCapacity = 100
         let mockLicensePlate1 = "B5830"
         let mockLicensePlate2 = "Z6230"
         let mockParkingRepository = MockParkingRepository()
         mockParkingRepository.storedVehicles.append(StoredVehicle(entryDate: Date(), vehicle: Car(cylinderCapacity: mockCylinderCapacity, licensePlate: mockLicensePlate1)))
-        let parking = Parking(carsLimit: 1, parkingRepository: mockParkingRepository)
+        let parking = ParkingService(parkingEntity: ParkingEntity(carsLimit: 1),
+                                     parkingRepository: mockParkingRepository)
 
         //Test
         do {
             try parking.enterVehicle(licensePlate: mockLicensePlate2, cylinderCapacity: mockCylinderCapacity, type: .car)
-        } catch ParkingErrors.NoCapacityForVehicle(let message) {
+        } catch let error as ParkingErrors {
 
             //Verify
-            XCTAssertEqual(message, "No hay cupo para el vehículo que desea ingresar")
+            XCTAssertEqual(error.errorDescription, "No hay cupo para el vehículo que desea ingresar")
         } catch {
             XCTFail()
         }

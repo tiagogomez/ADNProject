@@ -10,7 +10,8 @@
 		1E483578516A97E28661326B /* Pods_DataAccessLocal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBA3489CC3BE238934022929 /* Pods_DataAccessLocal.framework */; };
 		4D07579925F278CD00BE9542 /* ParkingRepositoryRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D07579825F278CD00BE9542 /* ParkingRepositoryRealm.swift */; };
 		4D1E6FFA25F13A10007B9915 /* DataAccessLocal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D1E6FF025F13A10007B9915 /* DataAccessLocal.framework */; };
-		4D1E6FFF25F13A10007B9915 /* DataAccessLocalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1E6FFE25F13A10007B9915 /* DataAccessLocalTests.swift */; };
+		4D2EC85125FBD3490025485C /* VehicleTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EC85025FBD3490025485C /* VehicleTranslator.swift */; };
+		4D2EC85525FBD6C60025485C /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D2EC85425FBD6C60025485C /* RealmConfiguration.swift */; };
 		4D554B1925F296FA00FDC14E /* StoredVehicleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D554B1825F296FA00FDC14E /* StoredVehicleEntity.swift */; };
 		4D554B1C25F297B500FDC14E /* VehicleEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D554B1B25F297B500FDC14E /* VehicleEntity.swift */; };
 		4D554B5F25F2A34000FDC14E /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D554B5E25F2A34000FDC14E /* Domain.framework */; };
@@ -48,8 +49,8 @@
 		4D1E6FF025F13A10007B9915 /* DataAccessLocal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DataAccessLocal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D1E6FF425F13A10007B9915 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D1E6FF925F13A10007B9915 /* DataAccessLocalTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DataAccessLocalTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D1E6FFE25F13A10007B9915 /* DataAccessLocalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataAccessLocalTests.swift; sourceTree = "<group>"; };
-		4D1E700025F13A10007B9915 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D2EC85025FBD3490025485C /* VehicleTranslator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleTranslator.swift; sourceTree = "<group>"; };
+		4D2EC85425FBD6C60025485C /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
 		4D554B1825F296FA00FDC14E /* StoredVehicleEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredVehicleEntity.swift; sourceTree = "<group>"; };
 		4D554B1B25F297B500FDC14E /* VehicleEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleEntity.swift; sourceTree = "<group>"; };
 		4D554B5E25F2A34000FDC14E /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,7 +104,6 @@
 			isa = PBXGroup;
 			children = (
 				4D1E6FF225F13A10007B9915 /* DataAccessLocal */,
-				4D1E6FFD25F13A10007B9915 /* DataAccessLocalTests */,
 				4D1E6FF125F13A10007B9915 /* Products */,
 				C1E037D57E25108E5ABCEEA9 /* Pods */,
 				BFF9D8A5702CB43A2CB63A2D /* Frameworks */,
@@ -122,6 +122,8 @@
 		4D1E6FF225F13A10007B9915 /* DataAccessLocal */ = {
 			isa = PBXGroup;
 			children = (
+				4D2EC85325FBD69C0025485C /* DatabaseConfig */,
+				4D2EC84F25FBD3140025485C /* Anticorruption  */,
 				4D07579725F2789A00BE9542 /* Entity */,
 				4D07579625F2788500BE9542 /* Repository */,
 				4D1E6FF425F13A10007B9915 /* Info.plist */,
@@ -129,13 +131,20 @@
 			path = DataAccessLocal;
 			sourceTree = "<group>";
 		};
-		4D1E6FFD25F13A10007B9915 /* DataAccessLocalTests */ = {
+		4D2EC84F25FBD3140025485C /* Anticorruption  */ = {
 			isa = PBXGroup;
 			children = (
-				4D1E6FFE25F13A10007B9915 /* DataAccessLocalTests.swift */,
-				4D1E700025F13A10007B9915 /* Info.plist */,
+				4D2EC85025FBD3490025485C /* VehicleTranslator.swift */,
 			);
-			path = DataAccessLocalTests;
+			path = "Anticorruption ";
+			sourceTree = "<group>";
+		};
+		4D2EC85325FBD69C0025485C /* DatabaseConfig */ = {
+			isa = PBXGroup;
+			children = (
+				4D2EC85425FBD6C60025485C /* RealmConfiguration.swift */,
+			);
+			path = DatabaseConfig;
 			sourceTree = "<group>";
 		};
 		BFF9D8A5702CB43A2CB63A2D /* Frameworks */ = {
@@ -336,6 +345,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D2EC85525FBD6C60025485C /* RealmConfiguration.swift in Sources */,
+				4D2EC85125FBD3490025485C /* VehicleTranslator.swift in Sources */,
 				4D554B1C25F297B500FDC14E /* VehicleEntity.swift in Sources */,
 				4D554B1925F296FA00FDC14E /* StoredVehicleEntity.swift in Sources */,
 				4D07579925F278CD00BE9542 /* ParkingRepositoryRealm.swift in Sources */,
@@ -346,7 +357,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D1E6FFF25F13A10007B9915 /* DataAccessLocalTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
