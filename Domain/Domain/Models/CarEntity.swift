@@ -12,9 +12,8 @@ public class Car: Vehicle {
     private let carHourPrice = 1000
     private let carDayPrice = 8000
     
-    public init(cylinderCapacity: Int, licensePlate: String) {
-        super.init(cylinderCapacity: cylinderCapacity,
-                   licensePlate: licensePlate,
+    public init(licensePlate: String) {
+        super.init(licensePlate: licensePlate,
                    hourPrice: carHourPrice,
                    dayPrice: carDayPrice)
     }

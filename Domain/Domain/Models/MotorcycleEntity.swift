@@ -11,12 +11,18 @@ public class Motorcycle: Vehicle {
 
     private let motorcycleHourPrice = 500
     private let motorcycleDayPrice = 4000
+    private let cylinderCapacity: Int
     
     public init(cylinderCapacity: Int, licensePlate: String) {
-        super.init(cylinderCapacity: cylinderCapacity,
-                   licensePlate: licensePlate,
+        self.cylinderCapacity = cylinderCapacity
+        super.init(licensePlate: licensePlate,
                    hourPrice: motorcycleHourPrice,
-                   dayPrice: motorcycleDayPrice)    }
+                   dayPrice: motorcycleDayPrice)
+    }
+    
+    public func getCylinderCapacity() -> Int {
+        return cylinderCapacity
+    }
     
     public override func vehicleType() -> VehicleType {
         return VehicleType.motorcycle

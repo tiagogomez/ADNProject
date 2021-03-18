@@ -26,7 +26,7 @@ public final class ParkingService {
         var vehicle: Vehicle
         switch type {
         case .car:
-            vehicle = Car(cylinderCapacity: cylinderCapacity, licensePlate: licensePlate)
+            vehicle = Car(licensePlate: licensePlate)
         case .motorcycle:
             vehicle = Motorcycle(cylinderCapacity: cylinderCapacity, licensePlate: licensePlate)
         }

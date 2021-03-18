@@ -17,4 +17,18 @@ public class BillEntity {
     public var stayedHours: Int?
     
     public init() {}
+    
+    public func getStayedDaysAndHours(from entryDate: Date, to exitDate: Date?) -> (Int, Int) {
+        let currentCalendar = Calendar.current
+        let numberOfDays = currentCalendar.dateComponents([.day, .hour], from: entryDate, to: exitDate ?? Date())
+        var days = numberOfDays.day ?? 0
+        var hours = numberOfDays.hour ?? 0
+        if hours >= 9 {
+            days = days + 1
+            hours = 0
+        }
+        self.stayedDays = days
+        self.stayedHours = hours
+        return(days, hours)
+    }
 }

@@ -14,20 +14,14 @@ public enum VehicleType: String {
 
 public class Vehicle {
     
-    private let cylinderCapacity: Int
     private let licensePlate: String
     private let hourPrice: Int
     private let dayPrice: Int
     
-    public init(cylinderCapacity: Int, licensePlate: String, hourPrice: Int, dayPrice: Int) {
-        self.cylinderCapacity = cylinderCapacity
+    public init(licensePlate: String, hourPrice: Int, dayPrice: Int) {
         self.licensePlate = licensePlate
         self.hourPrice = hourPrice
         self.dayPrice = dayPrice
-    }
-    
-    public func getCylinderCapacity() -> Int {
-        return cylinderCapacity
     }
     
     public func getLicensePlate() -> String {

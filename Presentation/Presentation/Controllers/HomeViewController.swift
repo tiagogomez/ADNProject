@@ -20,11 +20,19 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     private var vehicleTypeString: VehicleType?
     private var parkingService: ParkingService?
     
+    private let viewTitle = "Parking view"
+    private let noDataErrorMessage = "Debe ingresar una placa y un cilindraje"
+    private let errorMessageTitle = "No puede ingresar"
+    private let defaultErrorMessage = "No se pudo realizar el ingreso del vehículo"
+    private let successfulEntryMessage = "Su vehículo ingresó correctamente"
+    private let successfulEntryTitle = "Ingreso exitoso"
+    private let okButtonString = "OK"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         platesTextField.delegate = self
         cylinderCapacityTextField.delegate = self
-        self.title = "Parking view"
+        self.title = viewTitle
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.parkingService = appDelegate.diContainer.getContainer().resolve(ParkingService.self)!
@@ -33,7 +41,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     @IBAction func entryVehicleButtonPressed(_ sender: Any) {
         guard let platesText = platesTextField.text, !platesText.isEmpty,
               let ccText = cylinderCapacityTextField.text, !ccText.isEmpty else {
-            self.present(setupAlert(message: "Debe ingresar una placa y un cilindraje"),
+            self.present(setupAlert(message: noDataErrorMessage, title: errorMessageTitle),
                          animated: true,
                          completion:nil)
             return
@@ -45,14 +53,19 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
                                              cylinderCapacity: ccValue ?? Int(),
                                              type: vehicleTypeString ?? .car)
         } catch let error as ParkingErrors {
-            self.present(setupAlert(message: error.errorDescription), animated: true, completion:nil)
+            self.present(setupAlert(message: error.errorDescription, title: errorMessageTitle),
+                         animated: true,
+                         completion:nil)
             return
         } catch {
-            self.present(setupAlert(message: "No se pudo realizar el ingreso del vehículo"), animated: true, completion:nil)
+            self.present(setupAlert(message: defaultErrorMessage, title: errorMessageTitle),
+                         animated: true,
+                         completion:nil)
             return
         }
-        self.present(setupAlert(message: "Su vehículo ingresó correctamente",
-                                title: "Ingreso exitoso"), animated: true, completion:nil)
+        self.present(setupAlert(message: successfulEntryMessage, title: successfulEntryTitle),
+                     animated: true,
+                     completion:nil)
         clearFields()
     }
     
@@ -62,11 +75,11 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         self.navigationController?.pushViewController(vc, animated: true)
     }
 
-    private func setupAlert(message: String, title: String = "No puede ingresar") -> UIAlertController {
+    private func setupAlert(message: String, title: String) -> UIAlertController {
         let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        let alertAction = UIAlertAction(title: okButtonString, style: .default, handler: nil)
         alert.addAction(alertAction)
         return alert
     }
@@ -84,7 +97,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField.isEqual(platesTextField) {
-            let currentText = textField.text ?? ""
+            let currentText = textField.text ?? String()
             guard let stringRange = Range(range, in: currentText) else { return false }
             let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
 
@@ -100,7 +113,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
 
 fileprivate extension String {
     
-    // Si hay muchas crear carpeta aparte Strin+CheckValidCharacters
+    // Si hay muchas crear carpeta aparte String+CheckValidCharacters
     // Si son especificas de un proyecto crear clase propia
     var containsValidCharacter: Bool {
         guard self != "" else { return true }

@@ -13,12 +13,14 @@ class StoredVehiclesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     private var parkingService: ParkingService?
     
+    private let viewTitle = "Stored vehicles"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        self.title = "Stored vehicles"
+        self.title = viewTitle
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.parkingService = appDelegate.diContainer.getContainer().resolve(ParkingService.self)!
     }

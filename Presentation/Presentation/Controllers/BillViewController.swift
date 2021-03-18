@@ -20,6 +20,7 @@ class BillViewController: UIViewController {
     
     let storedVehicle: StoredVehicle
     let billService = BillService(billEntity: BillEntity())
+    private let viewTitle = "Bill View"
     
     init(storedVehicle: StoredVehicle) {
         self.storedVehicle = storedVehicle
@@ -34,9 +35,11 @@ class BillViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Bill View"
+        self.title = viewTitle
         self.plateLabel.text = storedVehicle.vehicle.getLicensePlate()
-        self.ccLabel.text = String(storedVehicle.vehicle.getCylinderCapacity())
+        if let vehicle = storedVehicle.vehicle as? Motorcycle {
+            self.ccLabel.text = String(vehicle.getCylinderCapacity())
+        }
         self.vehicleType.text = storedVehicle.vehicle.vehicleType().rawValue
         let bill = billService.generateBill(for: storedVehicle, with: Date())
         self.numberOfDaysLabel.text = String(bill.stayedDays ?? 0)

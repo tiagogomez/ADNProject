@@ -24,7 +24,7 @@ class VehicleTranslator {
             }
             switch vehicleType {
             case .car:
-                vehicle = Car(cylinderCapacity: vehicleEntity.cylinderCapacity, licensePlate: vehicleEntity.licensePlate)
+                vehicle = Car(licensePlate: vehicleEntity.licensePlate)
             case .motorcycle:
                 vehicle = Motorcycle(cylinderCapacity: vehicleEntity.cylinderCapacity, licensePlate: vehicleEntity.licensePlate)
             }
